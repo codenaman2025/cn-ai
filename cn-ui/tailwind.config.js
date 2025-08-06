@@ -6,7 +6,16 @@ export default {
 ],
 darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {animation: {
+        'spin-slow': 'spin 20s linear infinite',
+        'spin-reverse-slow': 'spin-reverse 30s linear infinite'
+      },
+      keyframes: {
+        'spin-reverse': {
+          from: { transform: 'rotate(360deg)' },
+          to: { transform: 'rotate(0deg)' }
+        }
+      },},
   },
   plugins: [],
 }
