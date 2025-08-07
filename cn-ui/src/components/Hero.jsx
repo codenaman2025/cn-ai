@@ -1,35 +1,10 @@
-import React,{useEffect,useState} from 'react';
-import { ArrowRight, Facebook, Linkedin } from 'lucide-react';
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
-import googleIcon from "../assets/icons/g.png";
-import amazonIcon from "../assets/icons/a.png";
-import dropboxIcon from "../assets/icons/f.png";
-import SpinningCircle from './SpinningCircle';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
+
 const Hero = () => {
-  const [init, setInit] = useState(false);
-
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => setInit(true));
-  }, []);
-
-  if (!init) return null;
   return (
     <main id="home" className="relative flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-4 py-16 text-center z-10">
-      <div className="absolute -z-10 flex justify-center items-center w-full h-full">
-          {/* Ripples */}
-          <div className="hero-ripple"></div>
-          <div className="hero-ripple"></div>
-          <div className="hero-ripple"></div>
-
-          {/* Spinning Circles */}
-          <SpinningCircle size={500} icons={[]} />
-          <SpinningCircle size={350} reverse icons={[]} />
-        </div>
       <div className="relative z-10 max-w-4xl mx-auto">
-        
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-blue-500 to-pink-500 animate-gradient-text">
           AI-Powered Tech Social Network
         </h1>
