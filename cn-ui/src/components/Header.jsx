@@ -1,8 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png'; // Adjust the path as necessary
-
+import LoginModal from "./LoginModal"; 
 const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   return (
     <header className="py-4 px-6 md:px-12 flex justify-between items-center relative z-10">
       {/* Logo */}
@@ -86,25 +87,30 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
             Founder
           </a>
         </nav>
-
-        {/* Theme Toggle Button (always visible) */}
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-full bg-gray-200 dark:bg-neutral-700 text-gray-700 dark:text-gray-200 hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500"
-          aria-label="Toggle theme"
-        >
-          {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-        </button>
-
-        {/* Mobile Menu Button (only visible on mobile) */}
-        <button
-          onClick={toggleMenu}
-          className="p-2 rounded-full bg-gray-200 dark:bg-neutral-700 text-gray-700 dark:text-gray-200 hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 md:hidden"
-          aria-label="Open menu"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
+      <div className="flex items-center gap-3">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <Sun size={18} className="text-yellow-400" />
+            ) : (
+              <Moon size={18} className="text-gray-600" />
+            )}
+          </button>
+
+          {/* Primary CTA */}
+          <button
+            onClick={() => setIsLoginOpen(true)}
+            className="ml-2 px-5 py-2 bg-gradient-to-r from-logo-start via-logo-mid to-logo-end text-white rounded-lg shadow hover:shadow-[0_0_20px_#7078F9] transition-all duration-300"
+          >
+            Connect
+          </button>
+        </div>
+        <LoginModal isOpen={isLoginOpen} closeModal={() => setIsLoginOpen(false)} />
     </header>
   );
 };
