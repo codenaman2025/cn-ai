@@ -1,5 +1,5 @@
 import { CheckCircle2, MapPin, Copy, Download, Share } from "lucide-react";
-import avatar from "../../assets/images/avatar.png";
+import avatar from '../../assets/avatar.png';
 
 export default function ProfileHeader() {
   return (
