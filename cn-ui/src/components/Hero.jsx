@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Facebook, Linkedin } from 'lucide-react';
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import googleIcon from "../assets/icons/g.png";
@@ -25,7 +25,7 @@ const Hero = () => {
           <div className="hero-ripple"></div>
 
           {/* Spinning Circles */}
-          <SpinningCircle size={500} icons={[googleIcon, amazonIcon, dropboxIcon]} />
+          <SpinningCircle size={500} icons={[]} />
           <SpinningCircle size={350} reverse icons={[]} />
         </div>
       <div className="relative z-10 max-w-4xl mx-auto">
