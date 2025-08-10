@@ -3,15 +3,16 @@ import { Fragment,useState  } from "react";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import googleIcon from "../assets/icons/ic-google.svg";
-import linkedinIcon from "../assets/icons/ic-linkedin.svg";
+import googleIcon from "../../assets/icons/ic-google.svg";
+import linkedinIcon from "../../assets/icons/ic-linkedin.svg";
 
 interface LoginModalProps {
   isOpen: boolean;
   closeModal: () => void;
+  openRegister: () => void;
 }
 
-export default function LoginModal({ isOpen, closeModal }: LoginModalProps) {
+export default function LoginModal({ isOpen, closeModal,openRegister = () => {}, }: LoginModalProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -85,11 +86,18 @@ export default function LoginModal({ isOpen, closeModal }: LoginModalProps) {
                 </div>
 
                 {/* Register link */}
-                <p className="text-center text-sm text-gray-500 mt-4">
+                <p className="text-sm text-gray-500 mt-4 text-center">
                   New to Code Naman?{" "}
-                  <a href="#" className="text-logo-mid hover:underline">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeModal();
+                      openRegister();
+                    }}
+                    className="text-logo-mid underline hover:text-logo-end"
+                  >
                     Register here
-                  </a>
+                  </button>
                 </p>
               </Dialog.Panel>
             </Transition.Child>

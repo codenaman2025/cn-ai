@@ -83,3 +83,34 @@ html {
 .animate-spin-reverse {
     animation: spin-reverse 30s linear infinite;
 }
+/* Scanning animation bar */
+.scan-bar {
+    position: relative;
+    height: 8px;
+    width: 100%;
+    border-radius: 9999px;
+    background: rgba(125, 125, 125, 0.2);
+    overflow: hidden;
+}
+
+.scan-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #04D1FC, #7078F9, #F55BB0);
+    background-size: 200% 200%;
+    animation: scanFill 1.2s ease-in-out infinite, scanWidth 0.2s linear forwards;
+    border-radius: 9999px;
+}
+
+@keyframes scanFill {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}

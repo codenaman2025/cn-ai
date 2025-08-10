@@ -1,9 +1,17 @@
 import React,{useState} from 'react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png'; // Adjust the path as necessary
-import LoginModal from "./LoginModal"; 
+import LoginModal from "./ui/LoginModal"; 
+import RegistrationModal from "./ui/RegistrationModal"; 
 const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  const openLogin = () => setIsLoginOpen(true);
+  const closeLogin = () => setIsLoginOpen(false);
+
+  const openRegister = () => setIsRegisterOpen(true);
+  const closeRegister = () => setIsRegisterOpen(false);
   return (
     <header className="py-4 px-6 md:px-12 flex justify-between items-center relative z-10">
       {/* Logo */}
@@ -110,7 +118,23 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
             Connect
           </button>
         </div>
-        <LoginModal isOpen={isLoginOpen} closeModal={() => setIsLoginOpen(false)} />
+        <LoginModal
+          isOpen={isLoginOpen}
+          closeModal={closeLogin}
+          openRegister={() => {
+            closeLogin();
+            openRegister();
+          }}
+        />
+
+        <RegistrationModal
+          isOpen={isRegisterOpen}
+          closeModal={closeRegister}
+          openLogin={() => {
+            closeRegister();
+            openLogin();
+          }}
+        />
     </header>
   );
 };
