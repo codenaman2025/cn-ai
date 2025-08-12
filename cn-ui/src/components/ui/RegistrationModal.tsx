@@ -16,6 +16,7 @@ interface RegistrationModalProps {
   isOpen: boolean;
   closeModal: () => void;
   onRegistered?: () => void;
+  openLogin?: () => void;
 }
 
 type Errors = Partial<
@@ -31,6 +32,7 @@ export default function RegistrationModal({
   isOpen,
   closeModal,
   onRegistered,
+  openLogin = () => {},
 }: RegistrationModalProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -301,7 +303,146 @@ export default function RegistrationModal({
                       )}
                     </div>
                   </div>
+                  {/* Work Status */}
+                  <div>
+                    <label className="text-sm text-gray-700 dark:text-gray-200">Work status <span className="text-red-500">*</span></label>
+                    <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Experienced */}
+                      <button
+                        type="button"
+                        onClick={() => setWorkStatus("experienced")}
+                        className={`text-left rounded-2xl border p-4 transition-all ${
+                          workStatus === "experienced"
+                            ? "border-logo-mid bg-logo-mid/5 shadow-sm"
+                            : "border-gray-300 dark:border-gray-700 hover:border-logo-mid/60"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <Briefcase
+                            size={22}
+                            className={workStatus === "experienced" ? "text-logo-mid" : "text-gray-500"}
+                          />
+                          <div>
+                            <p className="font-semibold text-gray-900 dark:text-white">I’m experienced</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                              I have work experience (excluding internships)
+                            </p>
+                          </div>
+                        </div>
+                      </button>
 
+                      {/* Fresher */}
+                      <button
+                        type="button"
+                        onClick={() => setWorkStatus("fresher")}
+                        className={`text-left rounded-2xl border p-4 transition-all ${
+                          workStatus === "fresher"
+                            ? "border-logo-mid bg-logo-mid/5 shadow-sm"
+                            : "border-gray-300 dark:border-gray-700 hover:border-logo-mid/60"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <BookOpen
+                            size={22}
+                            className={workStatus === "fresher" ? "text-logo-mid" : "text-gray-500"}
+                          />
+                          <div>
+                            <p className="font-semibold text-gray-900 dark:text-white">I’m a fresher</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                              I am a student/ Haven’t worked after graduation
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+
+                    {errors.workStatus && (
+                      <p className="text-xs text-red-500 mt-2 flex items-center gap-1">
+                        <AlertCircle size={14} /> {errors.workStatus}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* CV Upload */}
+                  <div
+                    onDragOver={onDragOver}
+                    onDragLeave={onDragLeave}
+                    onDrop={onDrop}
+                    className={`rounded-lg border-2 border-dashed p-5 transition-colors ${
+                      dragActive ? "border-logo-mid bg-logo-mid/5" : "border-gray-300 dark:border-gray-700"
+                    }`}
+                  >
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-logo-start via-logo-mid to-logo-end text-white flex items-center justify-center shadow">
+                        <Upload size={20} />
+                      </div>
+
+                      {!file && (
+                        <>
+                          <p className="mt-3 text-sm text-gray-700 dark:text-gray-200">
+                            CV/Resume — 
+                            Drag & drop your resume here, or{" "}
+                            <button
+                              type="button"
+                              onClick={handleBrowse}
+                              className="text-logo-mid underline"
+                            >
+                              browse
+                            </button>
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            <strong>PDF or DOC only</strong>, max 5MB.
+                          </p>
+                        </>
+                      )}
+
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".pdf,.doc"
+                        className="hidden"
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (f) handleFile(f);
+                        }}
+                      />
+
+                      {file && (
+                        <div className="mt-3 w-full max-w-sm">
+                          <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 justify-center">
+                            <FileText size={16} />
+                            <span className="truncate">{file.name}</span>
+                          </div>
+                          {scanning ? (
+                            <div className="mt-3">
+                              <div className="scan-bar">
+                                <div
+                                  className="scan-bar-fill"
+                                  style={{ width: `${Math.min(scanProgress, 100)}%` }}
+                                />
+                              </div>
+                              <div className="flex items-center gap-2 text-xs text-gray-500 mt-1 justify-center">
+                                <Loader2 className="animate-spin" size={14} />
+                                Scanning resume…
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="mt-3 flex items-center justify-center gap-2 text-xs text-green-500">
+                              <CheckCircle2 size={16} />
+                              Ready to upload
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {errors.file && (
+                        <p className="text-xs text-red-500 mt-2 flex items-center gap-1">
+                          <AlertCircle size={14} /> {errors.file}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+  
                   {/* Submit */}
                   <motion.button
                     whileTap={{ scale: 0.98 }}
@@ -317,6 +458,20 @@ export default function RegistrationModal({
                       Account created! Redirecting…
                     </p>
                   )}
+                  <p className="text-sm text-gray-500 mt-4 text-center">
+                    Already have an account?{" "}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        closeModal();
+                        // slight delay avoids modal animation overlap (optional)
+                        setTimeout(() => openLogin?.(), 50);
+                      }}
+                      className="text-logo-mid underline hover:text-logo-end"
+                    >
+                      Log in
+                    </button>
+                  </p>
                 </form>
 
                 {/* Tiny CSS for the scan bar */}

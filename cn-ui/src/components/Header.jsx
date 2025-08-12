@@ -123,7 +123,8 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
           closeModal={closeLogin}
           openRegister={() => {
             closeLogin();
-            openRegister();
+            // small delay so headlessui doesn’t overlap transitions
+            setTimeout(openRegister, 50);
           }}
         />
 
@@ -132,7 +133,7 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
           closeModal={closeRegister}
           openLogin={() => {
             closeRegister();
-            openLogin();
+            setTimeout(openLogin, 50);
           }}
         />
     </header>
