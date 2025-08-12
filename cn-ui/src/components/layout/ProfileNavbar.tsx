@@ -1,22 +1,21 @@
 import { Search, Bell, Menu, X, Sun, Moon, LogOut, User, Settings } from "lucide-react";
 import { useState } from "react";
 import logo from '../../assets/logo.png';
+import { useTheme } from "../../hooks/useTheme";
 import { Link, useLocation,useNavigate  } from "react-router-dom";
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
-
+  const { theme, toggleTheme } = useTheme();
   const navLinks = [
-    { label: "Dashboard", path: "/" },
+    { label: "Dashboard", path: "/feed" },
     { label: "Jobs", path: "/jobs" },
     { label: "Network", path: "/network" },
     { label: "Messages", path: "/messages" },
     { label: "Profile", path: "/profile" },
   ];
-
   const handleLogout = () => {
     console.log("Logged out");
     navigate("/");
@@ -56,7 +55,18 @@ export default function Navbar() {
         </div>
       {/* Right: Icons */}
       <div className="flex items-center gap-4">
-        
+        {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <Sun size={18} className="text-yellow-400" />
+            ) : (
+              <Moon size={18} className="text-gray-600" />
+            )}
+          </button>
         <Bell className="text-gray-400 w-5 h-5 cursor-pointer" />
         {/* Profile Dropdown */}
         <div className="relative">

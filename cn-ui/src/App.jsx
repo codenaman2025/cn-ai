@@ -15,7 +15,10 @@ import Comparison from './components/sections/Comparison';
 import Market from './components/sections/Market';
 import Founder from './components/sections/Founder';
 import Footer from './components/Footer';
-import Profile from './components/pages/Profile';
+import Profile from './pages/Profile';
+import Feed from './pages/Feed';
+import NamanChatWidget from './components/feed/Right/NamanBotCard';
+import JobFeedPage from './pages/JobFeedPage';
 
 
 const App = () => {
@@ -59,10 +62,13 @@ const App = () => {
               <Comparison />
               <Market />
               <Founder />
+              <NamanChatWidget />
             </>
           }
         />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/jobs" element={<JobFeedPage />} />
       </Routes>
 
       <Footer />

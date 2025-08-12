@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import Navbar from "./Navbar";
 import ProfileNavbar from "./ProfileNavbar";
+import NamanChatWidget from "../feed/Right/NamanBotCard";
 
 interface ProfileLayoutProps {
   children: ReactNode;
@@ -24,6 +24,7 @@ export default function ProfileLayout({ children, rightSidebar }: ProfileLayoutP
             {rightSidebar}
           </aside>
         )}
+        <NamanChatWidget onOpen={() => {}} />
       </div>
     </div>
   );

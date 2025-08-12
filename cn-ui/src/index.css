@@ -114,3 +114,6 @@ html {
         background-position: 0% 50%
     }
 }
+.gradient-icon {
+    @apply text-transparent bg-gradient-to-r from-logo-start via-logo-mid to-logo-end bg-clip-text;
+}
