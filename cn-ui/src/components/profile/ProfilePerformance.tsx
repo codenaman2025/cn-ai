@@ -1,6 +1,6 @@
 export default function ProfilePerformance() {
   return (
-    <section className="bg-white/5 rounded-xl p-5 border border-white/10 space-y-4">
+    <section className="bg-white/10 rounded-xl p-5 border border-white/10 space-y-4">
       <h2 className="text-lg font-semibold text-white">Profile Performance</h2>
 
       <div className="flex justify-between text-sm text-gray-300">

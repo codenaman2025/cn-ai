@@ -1,8 +1,11 @@
-interface EducationItemProps {
+import { Pencil } from "lucide-react";
+
+export interface EducationItemProps {
   school: string;
   degree: string;
   date: string;
   percentage: string;
+  onEdit?: () => void;
 }
 
 export default function EducationItem({
@@ -10,14 +13,25 @@ export default function EducationItem({
   degree,
   date,
   percentage,
+  onEdit,
 }: EducationItemProps) {
   return (
-    <div className="bg-white/5 rounded-xl p-5 border border-white/10 flex gap-4 hover:bg-white/10 transition-colors duration-200">
+    <div className="relative flex gap-4 rounded-xl border border-white/10 bg-white/10 p-5 transition-colors duration-200 hover:bg-white/10">
+      {/* Edit button */}
+      <button
+        onClick={onEdit}
+        className="absolute right-3 top-3 rounded-lg border border-white/10 bg-white/5 p-1.5 text-gray-200 hover:bg-white/10"
+        aria-label={`Edit ${school}`}
+        title="Edit"
+      >
+        <Pencil className="h-4 w-4" />
+      </button>
+
       {/* School Logo Placeholder */}
-      <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-gray-400">
+      <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-gray-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-8 h-8"
+          className="h-8 w-8"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -31,7 +45,7 @@ export default function EducationItem({
         </svg>
       </div>
 
-      {/* Education Details */}
+      {/* Details */}
       <div className="flex-1">
         <h3 className="font-semibold text-white">{school}</h3>
         <p className="text-sm text-gray-300">{degree}</p>

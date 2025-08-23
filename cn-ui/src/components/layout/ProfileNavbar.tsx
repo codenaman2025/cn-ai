@@ -10,10 +10,12 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
   const navLinks = [
-    { label: "Dashboard", path: "/feed" },
+    { label: "Home", path: "/feed" },
+    { label: "Videos", path: "/videos" },
     { label: "Jobs", path: "/jobs" },
     { label: "Network", path: "/network" },
     { label: "Messages", path: "/messages" },
+    { label: "Chat", path: "/chat" },
     { label: "Profile", path: "/profile" },
   ];
   const handleLogout = () => {

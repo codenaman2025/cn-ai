@@ -14,7 +14,7 @@ export default function ProfileLayout({ children, rightSidebar }: ProfileLayoutP
       <ProfileNavbar />
 
       {/* Main Container */}
-      <div className="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8 pt-6 flex gap-6">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8 p-4 flex gap-6">
         {/* Left / Main Content */}
         <div className="flex-1 space-y-6">{children}</div>
 

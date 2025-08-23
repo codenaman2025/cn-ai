@@ -29,14 +29,12 @@ export default function LoginModal({ isOpen, closeModal,openRegister = () => {},
       }
     }, 1500);
   };
-
+  const handleGoogleLogin = () => mockLogin(true);
+  const handleLinkedInLogin = () => mockLogin(true);
   const handleEmailLogin = (e: React.FormEvent) => {
     e.preventDefault();
     mockLogin(true); // change to false to simulate failure
   };
-
-  const handleGoogleLogin = () => mockLogin(true);
-  const handleLinkedInLogin = () => mockLogin(true);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={closeModal}>

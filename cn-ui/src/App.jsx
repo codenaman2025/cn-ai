@@ -1,47 +1,36 @@
 // App.js
-import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import Header from './components/Header';
-import MobileMenu from './components/MobileMenu';
-import CosmicBackground from './components/CosmicBackground';
-import Hero from './components/Hero';
-import About from './components/sections/About';
-import Features from './components/sections/Features';
-import HowItWorks from './components/sections/HowItWorks';
-import FAQ from './components/sections/FAQ';
-import Uniqueness from './components/sections/Uniqueness';
-import Comparison from './components/sections/Comparison';
-import Market from './components/sections/Market';
-import Founder from './components/sections/Founder';
-import Footer from './components/Footer';
-import Profile from './pages/Profile';
-import Feed from './pages/Feed';
-import NamanChatWidget from './components/feed/Right/NamanBotCard';
-import JobFeedPage from './pages/JobFeedPage';
-
+import Footer from "./components/Footer";
+import Profile from "./pages/Profile";
+import Feed from "./pages/Feed";
+import JobFeedPage from "./pages/JobFeedPage";
+import Home from "./pages/Home";
+import ChatPage from "./pages/ChatPage";
+import VideoFeed from "./pages/VideoFeedPage";
 
 const App = () => {
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    return saved || 'dark';
+    const saved = localStorage.getItem("theme");
+    return saved || "dark";
   });
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
+    root.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   useEffect(() => {
-    document.body.classList.toggle('overflow-hidden', isMenuOpen);
-    return () => document.body.classList.remove('overflow-hidden');
+    document.body.classList.toggle("overflow-hidden", isMenuOpen);
+    return () => document.body.classList.remove("overflow-hidden");
   }, [isMenuOpen]);
 
-  const toggleTheme = () => setTheme(t => (t === 'light' ? 'dark' : 'light'));
-  const toggleMenu = () => setIsMenuOpen(m => !m);
+  const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
+  const toggleMenu = () => setIsMenuOpen((m) => !m);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-gray-100 font-inter transition-colors duration-300 relative overflow-hidden">
@@ -49,28 +38,20 @@ const App = () => {
         <Route
           path="/"
           element={
-            <>
-              <CosmicBackground theme={theme} />
-              <Header theme={theme} toggleTheme={toggleTheme} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-              <MobileMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-              <Hero />
-              <About />
-              <Features />
-              <HowItWorks />
-              <FAQ />
-              <Uniqueness />
-              <Comparison />
-              <Market />
-              <Founder />
-              <NamanChatWidget />
-            </>
+            <Home
+              theme={theme}
+              toggleTheme={toggleTheme}
+              isMenuOpen={isMenuOpen}
+              toggleMenu={toggleMenu}
+            />
           }
         />
         <Route path="/profile" element={<Profile />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/jobs" element={<JobFeedPage />} />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/videos" element={<VideoFeed />} />
       </Routes>
-
       <Footer />
     </div>
   );

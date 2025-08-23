@@ -10,7 +10,7 @@ export default function CertificationItem({
   year,
 }: CertificationItemProps) {
   return (
-    <div className="bg-white/5 rounded-xl p-5 border border-white/10 flex gap-4 hover:bg-white/10 transition-colors duration-200">
+    <div className="bg-white/10 rounded-xl p-5 border border-white/10 flex gap-4 hover:bg-white/10 transition-colors duration-200">
       {/* Logo Placeholder */}
       <div className="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center text-gray-400">
         🎓

@@ -4,7 +4,7 @@ interface HobbiesSectionProps {
 
 export default function HobbiesSection({ hobbies }: HobbiesSectionProps) {
   return (
-    <section className="bg-white/5 rounded-xl p-5 border border-white/10">
+    <section className="bg-white/10 rounded-xl p-5 border border-white/10">
       <h2 className="text-lg font-semibold text-white mb-4">Hobbies</h2>
       <div className="flex flex-wrap gap-2">
         {hobbies.map((hobby, i) => (

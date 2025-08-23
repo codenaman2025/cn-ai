@@ -117,3 +117,11 @@ html {
 .gradient-icon {
     @apply text-transparent bg-gradient-to-r from-logo-start via-logo-mid to-logo-end bg-clip-text;
 }
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

@@ -11,6 +11,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 interface RegistrationModalProps {
   isOpen: boolean;
@@ -21,12 +22,14 @@ interface RegistrationModalProps {
 
 type Errors = Partial<
   Record<
-    "name" | "email" | "password" | "file" | "mobile" | "workStatus",
+    "email" | "password",
     string
   >
 >;
 
 type WorkStatus = "experienced" | "fresher" | "";
+import googleIcon from "../../assets/icons/ic-google.svg";
+import linkedinIcon from "../../assets/icons/ic-linkedin.svg";
 
 export default function RegistrationModal({
   isOpen,
@@ -35,14 +38,12 @@ export default function RegistrationModal({
   openLogin = () => {},
 }: RegistrationModalProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mobile, setMobile] = useState("");
   const [workStatus, setWorkStatus] = useState<WorkStatus>("");
   const [role, setRole] = useState("Engineer");
-
   const [file, setFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
@@ -50,7 +51,23 @@ export default function RegistrationModal({
   const [scanProgress, setScanProgress] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();const mockLogin = (success = true) => {
+    setLoading(true);
+    setError("");
+    setTimeout(() => {
+      setLoading(false);
+      if (success) {
+        closeModal();
+        navigate("/profile");
+      } else {
+        setError("Invalid credentials. Please try again.");
+      }
+    }, 1500);
+  };
+  const handleGoogleLogin = () => mockLogin(true);
+  const handleLinkedInLogin = () => mockLogin(true);
   useEffect(() => {
     if (!isOpen) {
       setTimeout(() => {
@@ -136,17 +153,10 @@ export default function RegistrationModal({
 
   const validateForm = () => {
     const next: Errors = {};
-    if (!name.trim()) next.name = "Full name is required.";
     if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email))
       next.email = "Valid email is required.";
     if (!password || password.length < 6)
       next.password = "Password must be at least 6 characters.";
-    const m = cleanMobile(mobile);
-    if (!m || !/^\d{10}$/.test(m))
-      next.mobile = "Enter a valid 10-digit mobile number.";
-    if (!workStatus) next.workStatus = "Please select your work status.";
-    if (!file) next.file = "Please upload your resume (PDF or DOC).";
-
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -215,8 +225,8 @@ export default function RegistrationModal({
                 {/* Form */}
                 <form onSubmit={onSubmit} className="mt-6 space-y-5">
                   {/* Name / Email */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
+                  <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+                    {/* <div>
                       <label className="text-sm text-gray-700 dark:text-gray-200">
                         Full name
                       </label>
@@ -234,7 +244,7 @@ export default function RegistrationModal({
                           <AlertCircle size={14} /> {errors.name}
                         </p>
                       )}
-                    </div>
+                    </div> */}
 
                     <div>
                       <label className="text-sm text-gray-700 dark:text-gray-200">
@@ -244,7 +254,7 @@ export default function RegistrationModal({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="mt-1 w-full rounded-md border border-gray-300 dark:border-gray-700 p-2 bg-white dark:bg-gray-950 focus:outline-none focus:ring-2 focus:ring-logo-mid"
+                        className="mt-1 w-full rounded-md border border-gray-300 dark:border-gray-700 p-2 bg-white dark:bg-gray-950 focus:outline-none focus:ring-2 focus:ring-logo-mid text-white"
                         placeholder="name@domain.com"
                       />
                       <p className="text-[11px] text-gray-500 mt-1">
@@ -258,10 +268,10 @@ export default function RegistrationModal({
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols- gap-4">
                     
 
-                    <div>
+                    {/* <div>
                       <label className="text-sm text-gray-700 dark:text-gray-200">
                         Mobile number
                       </label>
@@ -281,7 +291,7 @@ export default function RegistrationModal({
                           <AlertCircle size={14} /> {errors.mobile}
                         </p>
                       )}
-                    </div>
+                    </div> */}
                     <div>
                       <label className="text-sm text-gray-700 dark:text-gray-200">
                         Password
@@ -290,7 +300,7 @@ export default function RegistrationModal({
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="mt-1 w-full rounded-md border border-gray-300 dark:border-gray-700 p-2 bg-white dark:bg-gray-950 focus:outline-none focus:ring-2 focus:ring-logo-mid"
+                        className="mt-1 w-full rounded-md border text-white border-gray-300 dark:border-gray-700 p-2 bg-white dark:bg-gray-950 focus:outline-none focus:ring-2 focus:ring-logo-mid"
                         placeholder="Minimum 6 characters"
                       />
                       <p className="text-[11px] text-gray-500 mt-1">
@@ -304,10 +314,9 @@ export default function RegistrationModal({
                     </div>
                   </div>
                   {/* Work Status */}
-                  <div>
+                  {/* <div>
                     <label className="text-sm text-gray-700 dark:text-gray-200">Work status <span className="text-red-500">*</span></label>
                     <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Experienced */}
                       <button
                         type="button"
                         onClick={() => setWorkStatus("experienced")}
@@ -331,7 +340,6 @@ export default function RegistrationModal({
                         </div>
                       </button>
 
-                      {/* Fresher */}
                       <button
                         type="button"
                         onClick={() => setWorkStatus("fresher")}
@@ -355,13 +363,12 @@ export default function RegistrationModal({
                         </div>
                       </button>
                     </div>
-
                     {errors.workStatus && (
                       <p className="text-xs text-red-500 mt-2 flex items-center gap-1">
                         <AlertCircle size={14} /> {errors.workStatus}
                       </p>
                     )}
-                  </div>
+                  </div> */}
 
                   {/* CV Upload */}
                   <div
@@ -458,7 +465,17 @@ export default function RegistrationModal({
                       Account created! Redirecting…
                     </p>
                   )}
-                  <p className="text-sm text-gray-500 mt-4 text-center">
+                  
+                </form>
+                <div className="mt-4 flex flex-col gap-2">
+                  <motion.button whileTap={{ scale: 0.97 }} onClick={handleGoogleLogin} disabled={loading} className="w-full bg-red-500 text-white py-2 rounded-md flex items-center justify-center gap-2 hover:opacity-90">
+                    <img src={googleIcon} className="w-6" alt="Sign in with Google" /> Sign in with Google
+                  </motion.button>
+                  <motion.button whileTap={{ scale: 0.97 }} onClick={handleLinkedInLogin} disabled={loading} className="w-full bg-blue-600 text-white py-2 rounded-md flex items-center justify-center gap-2 hover:opacity-90">
+                    <img src={linkedinIcon} className="w-6" alt="Sign in with LinkedIn" /> Sign in with LinkedIn
+                  </motion.button>
+                </div>
+                <p className="text-sm text-gray-500 mt-4 text-center">
                     Already have an account?{" "}
                     <button
                       type="button"
@@ -472,8 +489,6 @@ export default function RegistrationModal({
                       Log in
                     </button>
                   </p>
-                </form>
-
                 {/* Tiny CSS for the scan bar */}
                 <style>{`
                   .scan-bar { height: 6px; width: 100%; background: rgba(0,0,0,.08); border-radius: 9999px; overflow: hidden; }

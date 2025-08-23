@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import ProfileLayout from "../components/layout/ProfileLayout";
 import CertificationsList from "../components/profile/CertificationsList";
 import ChoicesSection from "../components/profile/ChoicesSection";
@@ -8,23 +9,33 @@ import IndustryConnections from "../components/profile/IndustryConnections";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfilePerformance from "../components/profile/ProfilePerformance";
 import SkillsSection from "../components/profile/SkillsSection";
-
+import CandidateInterestModal from "../components/CandidateInterestModal";
 export default function Profile() {
   const skills = ["JavaScript", "React", "Node.js", "TypeScript", "SQL", "REST API"];
   const hobbies = ["Photography", "Chess", "Cycling", "Traveling"];
   const choices = ["Remote work", "Full-time roles", "Product-based companies"];
+  const [profile,setProfile]=useState();
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    // Show modal right after profile page loads
+    setShowModal(true);
+  }, []);
   return (
-    <ProfileLayout rightSidebar={<>
-          <ProfilePerformance />
-          <IndustryConnections />
-          <ChoicesSection choices={choices} />
-        </>}>
-      <ProfileHeader />
-      <ExperienceList />
-      <SkillsSection skills={skills} />
-      <EducationList />
-      <CertificationsList />
-      <HobbiesSection hobbies={hobbies} />
-    </ProfileLayout>
+    <>
+      <ProfileLayout rightSidebar={<>
+            <ProfilePerformance />
+            <IndustryConnections />
+            <ChoicesSection choices={choices} />
+          </>}>
+        <ProfileHeader />
+        <ExperienceList />
+        <SkillsSection skills={skills} />
+        <EducationList />
+        <CertificationsList />
+        <HobbiesSection hobbies={hobbies} />
+      </ProfileLayout>
+      <CandidateInterestModal isOpen={showModal} onClose={() => setShowModal(false)} />
+      </>
   );
 }

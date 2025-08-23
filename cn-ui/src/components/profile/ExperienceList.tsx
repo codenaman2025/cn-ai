@@ -1,7 +1,8 @@
-import ExperienceItem from "./ExperienceItem";
+import { Plus } from "lucide-react";
+import ExperienceItem, { ExperienceItemProps } from "./ExperienceItem";
 
 export default function ExperienceList() {
-  const experiences = [
+  const experiences: ExperienceItemProps[] = [
     {
       company: "ABC Company",
       role: "Senior Software Engineer",
@@ -40,11 +41,38 @@ export default function ExperienceList() {
     },
   ];
 
+  const handleAddExperience = () => {
+    // TODO: open create-experience modal / route
+    console.log("Add new experience");
+  };
+
+  const handleEditExperience = (index: number) => {
+    // TODO: open edit modal with experiences[index]
+    console.log("Edit experience at index:", index);
+  };
+
   return (
     <section className="space-y-4">
-      <h2 className="text-lg font-semibold text-white">Experience</h2>
+      {/* Title row with + button */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-white">Experience</h2>
+        <button
+          onClick={handleAddExperience}
+          className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-gray-100 hover:bg-white/10"
+          aria-label="Add experience"
+          title="Add experience"
+        >
+          <Plus className="h-4 w-4" />
+          Add
+        </button>
+      </div>
+
       {experiences.map((exp, i) => (
-        <ExperienceItem key={i} {...exp} />
+        <ExperienceItem
+          key={i}
+          {...exp}
+          onEdit={() => handleEditExperience(i)}
+        />
       ))}
     </section>
   );
