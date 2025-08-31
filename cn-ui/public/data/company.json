@@ -1,0 +1,90 @@
+{
+    "company": {
+        "name": "ABC Company Inc",
+        "followers": 1011,
+        "logo": "/logo.png"
+    },
+    "jobs": {
+        "open": [
+            {
+                "title": "Frontend Developer",
+                "type": "Full-time",
+                "location": "Remote",
+                "mode": "Remote",
+                "postedBy": "Sam Singh Chadda",
+                "date": "2025-08-10",
+                "status": "Open",
+                "applicants": 42
+            }
+        ],
+        "paused": [
+            {
+                "title": "Interior Designer",
+                "type": "Full-time",
+                "location": "Raipur, Chhattisgarh, India",
+                "mode": "On-site",
+                "postedBy": "Sam Singh Chadda",
+                "date": "2025-08-11",
+                "status": "Paused",
+                "reason": "Your job post is paused because you’ve reached your total budget.",
+                "applicants": 23
+            }
+        ],
+        "draft": [
+            {
+                "title": "UI/UX Designer",
+                "type": "Contract",
+                "location": "Bangalore, India",
+                "mode": "Hybrid",
+                "postedBy": "Sam Singh Chadda",
+                "date": "2025-08-05",
+                "status": "Draft",
+                "applicants": 0
+            }
+        ],
+        "closed": [
+            {
+                "title": "QA Tester",
+                "type": "Internship",
+                "location": "Delhi, India",
+                "mode": "On-site",
+                "postedBy": "Sam Singh Chadda",
+                "date": "2025-07-20",
+                "status": "Closed",
+                "applicants": 12
+            }
+        ]
+    },
+    "posts": [
+        {
+            "id": 1,
+            "company": "ABC Company Inc",
+            "companyLogo": "/logo.png",
+            "time": "2m ago",
+            "content": "🚀 We're Hiring! Join the Shree Atal Group Team 📢",
+            "image": "/assets/post-banner.png",
+            "likes": 12,
+            "comments": 5
+        },
+        {
+            "id": 2,
+            "company": "ABC Company Inc",
+            "companyLogo": "/logo.png",
+            "time": "1h ago",
+            "content": "Our team had an amazing offsite in Goa! 🌴🌊",
+            "image": "/assets/team-offsite.png",
+            "likes": 45,
+            "comments": 10
+        },
+        {
+            "id": 3,
+            "company": "ABC Company Inc",
+            "companyLogo": "/logo.png",
+            "time": "3h ago",
+            "content": "New product launch coming soon. Stay tuned! ⚡",
+            "image": "",
+            "likes": 78,
+            "comments": 23
+        }
+    ]
+}

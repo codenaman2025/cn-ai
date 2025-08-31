@@ -9,6 +9,9 @@ import JobFeedPage from "./pages/JobFeedPage";
 import Home from "./pages/Home";
 import ChatPage from "./pages/ChatPage";
 import VideoFeed from "./pages/VideoFeedPage";
+import CompanyDashboard from "./pages/CompanyDashboard";
+import JobDetailsPage from "./pages/JobDetailsPage";
+import JobPostingPage from "./pages/JobPostingPage";
 
 const App = () => {
   const [theme, setTheme] = useState(() => {
@@ -51,6 +54,9 @@ const App = () => {
         <Route path="/jobs" element={<JobFeedPage />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/videos" element={<VideoFeed />} />
+        <Route path="/company" element={<CompanyDashboard />} />
+        <Route path="/jobs/:jobId" element={<JobDetailsPage />} />
+        <Route path="/post-job" element={<JobPostingPage />} />
       </Routes>
       <Footer />
     </div>
